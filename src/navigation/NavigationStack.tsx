@@ -8,7 +8,11 @@ const Stack = createStackNavigator();
 export default function NavigationStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        initialParams={{ title: 'jwt' }}
+      />
       <Stack.Screen name="Home" component={HomeScreen} />
     </Stack.Navigator>
   );

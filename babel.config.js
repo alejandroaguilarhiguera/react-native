@@ -3,12 +3,13 @@ module.exports = function (api) {
   return {
     presets: ['babel-preset-expo'],
     plugins: [
+      ['react-native-reanimated/plugin'],
       [
         'module-resolver',
         {
           root: ['./'],
           alias: {
-            '^~(.+)': './src/\\1'
+            '^~(.+)': './src/\\1',
           },
           extensions: [
             '.ios.js',
@@ -18,10 +19,10 @@ module.exports = function (api) {
             '.json',
             '.tsx',
             '.ts',
-            '.native.js'
-          ]
-        }
-      ]
-    ]
+            '.native.js',
+          ],
+        },
+      ],
+    ],
   };
 };
