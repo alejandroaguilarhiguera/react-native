@@ -8,6 +8,7 @@ import type { BottomTabScreenProps } from '@react-navigation//bottom';
 export type RootStackParamList = {
   Home: any;
   Login: any;
+  Collections: any;
   //   Login: { title?: string };
 };
 

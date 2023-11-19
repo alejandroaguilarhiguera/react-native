@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Button, SafeAreaView } from 'react-native';
 import type { StackScreenProps } from '@react-navigation/stack';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '~/navigation/types';
+import LoginForm from '../components/LoginForm';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
@@ -13,15 +14,10 @@ export default function LoginScreen(props: Props) {
   } = props;
   const { title = '' } = params as { title: string };
 
-  const goHome = () => {
-    navigation.navigate('Home');
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <Text>Login</Text>
-      <Text>{title}</Text>
-      <Button title="Next" onPress={goHome} />
+      <LoginForm onSuccessful={() => navigation.navigate('Collections')} />
       <StatusBar style="auto" />
     </SafeAreaView>
   );

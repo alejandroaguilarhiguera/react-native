@@ -4,5 +4,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
     "source.fixAll.tslint": true
-  }
+  },
+  "cSpell.words": ["hookform"]
 }
