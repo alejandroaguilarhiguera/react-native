@@ -9,7 +9,7 @@ export type RootStackParamList = {
   Home: any;
   Login: any;
   Collections: any;
-  //   Login: { title?: string };
+  Cards: any;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

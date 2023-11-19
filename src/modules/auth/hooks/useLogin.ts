@@ -1,11 +1,12 @@
 import axios from 'axios';
-// import { AsyncStorage } from 'react-native';
+import { mutate } from 'swr';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import loginSchema from '../schemas/login.schema';
 import LoginForm from '../types/LoginForm';
 import { Session } from '~/types/Session';
 import { HttpError } from '~/types/Error';
+import { API_LOGIN } from '~/config/api';
 
 export default () => {
   const form = useForm<LoginForm>({
@@ -18,16 +19,14 @@ export default () => {
   });
 
   async function doLogin(loginData: LoginForm): Promise<void> {
-    const url = `${process.env.EXPO_PUBLIC_API_URL}/api/auth/local`;
     try {
-      const { data: session } = await axios.post<Session>(url, {
+      const { data: session } = await axios.post<Session>(API_LOGIN, {
         identifier: loginData.userName,
         password: loginData.password,
       });
+      axios.defaults.headers.common['Authorization'] = `Bearer ${session.jwt}`;
 
-      // TODO: set session on local storage
-      // await AsyncStorage.setItem('session', JSON.stringify(session));
-      console.log('session', session);
+      mutate<Session>('session', session);
     } catch (error: any) {
       if (error?.response?.data) {
         const httpError = error?.response?.data.error as HttpError;
@@ -40,5 +39,9 @@ export default () => {
       }
     }
   }
-  return { form, doLogin };
+  async function logout(): Promise<void> {
+    delete axios.defaults.headers.common['Authorization'];
+    mutate('session', {});
+  }
+  return { form, doLogin, logout };
 };

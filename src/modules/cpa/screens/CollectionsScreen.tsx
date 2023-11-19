@@ -41,7 +41,9 @@ export default function CollectionsScreen(props: Props) {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
-        {collections?.map((character) => <ItemCollection data={character} />)}
+        {collections?.map((character) => (
+          <ItemCollection key={character.id} data={character} />
+        ))}
       </ScrollView>
       <StatusBar style="auto" />
     </SafeAreaView>
